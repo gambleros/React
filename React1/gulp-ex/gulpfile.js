@@ -4,7 +4,7 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
-
+var uglify = require('gulp-uglify');
 gulp.task('default', function() {
     var bundler=watchify(browserify({
     	entries      : ['./src/app.jsx'],
@@ -26,4 +26,9 @@ gulp.task('default', function() {
     }
     build()
     bundler.on('update',build)
+});
+gulp.task('compress', function() {
+    gulp.src('./main.js')
+      .pipe(uglify())
+      .pipe(gulp.dest('./'));
 });
